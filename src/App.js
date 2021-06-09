@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Container, Header, Button, Icon, Segment } from "semantic-ui-react";
+import { Header, Button, Icon, Segment } from "semantic-ui-react";
 import Songs from "./Songs";
 import SongForm from "./SongForm"
+import styled from "styled-components"
 class App extends Component {
   state = {
     songs: [
@@ -36,43 +37,62 @@ class App extends Component {
         artist: "Unknown",
         link: "https://www.youtube.com/watch?v=0cVlTeIATBs",
       },
-    ], showForm: true,
+    ],
+    showForm: true,
   };
 
-  toggleForm = () => this.setState({ showForm: !this.state.showForm})
+  toggleForm = () => this.setState({ showForm: !this.state.showForm });
 
   getId = () => {
-    return Math.floor((1 + Math.random()) * 1000)
-  }
-  
+    return Math.floor((1 + Math.random()) * 1000);
+  };
+
   addSong = (songData) => {
-    let song = { id: this.getId(), ...songData, }
-    this.setState({ songs: [song, ...this.state.songs], })
-  }
+    let song = { id: this.getId(), ...songData };
+    this.setState({ songs: [song, ...this.state.songs] });
+  };
   removeSong = (id) => {
-    const songs = this.state.songs.filter(song => {
-      if (song.id !== id)
-        return song
-    })
-    this.setState({ songs: [...songs], })
-  }
+    const songs = this.state.songs.filter((song) => {
+      if (song.id !== id) return song;
+    });
+    this.setState({ songs: [...songs] });
+  };
 
   render() {
     return (
-      <Container style={{ paddingTop: "25px" }}>
+      <AppContainer style={{ paddingTop: "25px" }}>
         <Header as="h1"> Music List </Header>
         <br />
-        <Segment basic>
-          <Button icon color="black" onClick={this.toggleForm}>
-            <Icon name={this.state.showForm ? 'angle double up' : 'angle double down'} />
+        <Segment as={Transparent}>
+          <Button
+            toggle
+            icon
+            color="twitter"
+            onClick={this.toggleForm}
+          >
+            <Icon
+              name={this.state.showForm ? "keyboard outline" : "keyboard"}
+            />
           </Button>
+          <br />
           {this.state.showForm ? <SongForm add={this.addSong} /> : null}
         </Segment>
         <br />
         <Songs songs={this.state.songs} remove={this.removeSong} />
-      </Container>
+      </AppContainer>
     );
   }
 }
+
+
+const AppContainer = styled.div`
+  background: linear-gradient(to right, #ffe031, #f04579);
+  padding: 20px 100px;
+  min-height: 100vh;
+`;
+const Transparent = styled.div`
+background: transparent !important;
+`
+
 
 export default App;

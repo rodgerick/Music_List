@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form } from "semantic-ui-react"
+import { Form, Button, Icon } from "semantic-ui-react"
 
 class SongForm extends React.Component {
   state = { songName: "", artist: "", link: "" };
@@ -43,7 +43,12 @@ class SongForm extends React.Component {
             onChange={this.handleChange}
           />
         </Form.Group>
-        <Form.Button>Add</Form.Button>
+        <Form.Button animated color="green">
+          <Button.Content visible>Add</Button.Content>
+          <Button.Content hidden>
+            <Icon name="plus" />
+          </Button.Content>
+        </Form.Button>
       </Form>
     );
   }
